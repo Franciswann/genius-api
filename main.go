@@ -26,44 +26,6 @@ type GeniusResponse struct {
 	} `json:"response"`
 }
 
-func main() {
-
-	// Load the .env file
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println("Error loading .env file")
-	}
-
-	// Read from environment variables; prompt if not found.
-	accessToken := os.Getenv("GENIUS_ACCESS_TOKEN")
-
-	if accessToken == "" {
-		fmt.Println("Please set the environment variable: GENIUS_ACCESS_TOKEN")
-		return
-	}
-
-	// add scanner
-	scanner := bufio.NewScanner(os.Stdin)
-
-	fmt.Print("Enter lyrics: ")
-
-	// Read lyrics
-	if scanner.Scan() {
-		searchQuery := scanner.Text()
-
-		// if user didn't enter, exit
-		if strings.TrimSpace(searchQuery) == "" {
-			fmt.Println("Plz enter something useful")
-			return
-		}
-
-		fmt.Printf("\n Searching: %s...\n", searchQuery)
-		searchInGenius(searchQuery, accessToken)
-	}
-}
-
-// searchQuery := "Found the puzzle piece and feel completed"
-
 func searchInGenius(query string, token string) {
 	// 1. Create URL and encode Chinese characters
 	apiURL := fmt.Sprintf("https://api.genius.com/search?q=%s", url.QueryEscape(query))
@@ -114,3 +76,41 @@ func searchInGenius(query string, token string) {
 	}
 
 }
+
+func main() {
+
+	// Load the .env file
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
+
+	// Read from environment variables; prompt if not found.
+	accessToken := os.Getenv("GENIUS_ACCESS_TOKEN")
+
+	if accessToken == "" {
+		fmt.Println("Please set the environment variable: GENIUS_ACCESS_TOKEN")
+		return
+	}
+
+	// add scanner
+	scanner := bufio.NewScanner(os.Stdin)
+
+	fmt.Print("Enter lyrics: ")
+
+	// Read lyrics
+	if scanner.Scan() {
+		searchQuery := scanner.Text()
+
+		// if user didn't enter, exit
+		if strings.TrimSpace(searchQuery) == "" {
+			fmt.Println("Plz enter something useful")
+			return
+		}
+
+		fmt.Printf("\n Searching: %s...\n", searchQuery)
+		searchInGenius(searchQuery, accessToken)
+	}
+}
+
+// searchQuery := "Found the puzzle piece and feel completed"

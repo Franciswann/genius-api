@@ -47,7 +47,7 @@ func searchInGenius(query string, token string) {
 	body, _ := io.ReadAll(resp.Body)
 	var result GeniusResponse
 
-	// // 在 json.Unmarshal 之前加入這行，看看原始的「水」長什麼樣子
+	// // Add this before json.Unmarshal to inspect the raw JSON response.
 	// fmt.Println("Raw JSON:", string(body))
 
 	err = json.Unmarshal(body, &result)
